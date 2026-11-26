@@ -221,3 +221,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Daten: Ordner behalten, Inhalte nicht versionieren
+data_input/*
+!data_input/.gitkeep
+!data_input/beispiel.txt
+data_output/*
+!data_output/.gitkeep
+
+
+*.ipynb
+
