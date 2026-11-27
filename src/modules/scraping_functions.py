@@ -17,6 +17,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import pandas as pd
@@ -148,6 +149,16 @@ def sort_class_columns(cols: set[str]) -> list[str]:
     return sorted(cols, key=key)
 
 
+def product_url(part: str, lang: str = "en") -> str:
+    """Produkt-URL zu einer Artikelnummer.
+
+    Swagelok erwartet "/" doppelt kodiert (``%252F``), z. B.
+    SS-CHVCR4-KZ-1/3 -> .../p/SS-CHVCR4-KZ-1%252F3
+    """
+    encoded = urllib.parse.quote(part, safe="").replace("%2F", "%252F")
+    return BASE_URL.format(lang=lang, part=encoded)
+
+
 def scrape_part(part: str, lang: str = "en", image_dir: Path | None = None) -> dict:
     """Scrapt eine Artikelnummer und liefert eine Ergebniszeile.
 
@@ -155,7 +166,7 @@ def scrape_part(part: str, lang: str = "en", image_dir: Path | None = None) -> d
     in ``Bilddateien`` eingetragen. Fehler landen in ``Status``, es wird
     keine Exception geworfen.
     """
-    url = BASE_URL.format(lang=lang, part=urllib.parse.quote(part, safe=""))
+    url = product_url(part, lang)
     try:
         final_url, page = fetch(url)
     except urllib.error.HTTPError as exc:
@@ -175,18 +186,35 @@ def scrape_part(part: str, lang: str = "en", image_dir: Path | None = None) -> d
 
 
 def scrape_items(
-    item_codes: list[str], lang: str = "en", pause: float = 1.0, image_dir: Path | None = None
+    item_codes: list[str],
+    lang: str = "en",
+    pause: float = 1.0,
+    image_dir: Path | None = None,
+    workers: int = 4,
 ) -> pd.DataFrame:
-    """Scrapt alle ItemCodes nacheinander und liefert die Ergebnisse als DataFrame."""
-    rows: list[dict] = []
-    for n, part in enumerate(item_codes, 1):
+    """Scrapt alle ItemCodes parallel und liefert die Ergebnisse als DataFrame.
+
+    ``workers`` Anfragen laufen gleichzeitig; jeder Worker wartet nach einem
+    Artikel ``pause`` Sekunden, um den Server nicht zu überlasten.
+    Die Reihenfolge der Zeilen entspricht ``item_codes``.
+    """
+    def task(part: str) -> dict:
         row = scrape_part(part, lang=lang, image_dir=image_dir)
-        rows.append(row)
-        n_cls = sum(1 for k in row if k.startswith(("eClass ", "UNSPSC ")))
-        log.info("[%d/%d] %s: %s, %d Klassifikationen, Bilder: %s",
-                 n, len(item_codes), part, row["Status"], n_cls, row.get("Bilddateien") or "-")
-        if n < len(item_codes):
-            time.sleep(pause)
+        time.sleep(pause)
+        return row
+
+    results: dict[str, dict] = {}
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
+        futures = {executor.submit(task, part): part for part in item_codes}
+        for n, future in enumerate(as_completed(futures), 1):
+            part = futures[future]
+            row = future.result()
+            results[part] = row
+            n_cls = sum(1 for k in row if k.startswith(("eClass ", "UNSPSC ")))
+            log.info("[%d/%d] %s: %s, %d Klassifikationen, Bilder: %s",
+                     n, len(item_codes), part, row["Status"], n_cls, row.get("Bilddateien") or "-")
+
+    rows = [results[part] for part in item_codes]
 
     # Spalten sortieren: Status, Name, Klassifikationen (nach Version), Bilder, URL
     class_cols = sort_class_columns({k for r in rows for k in r if k.startswith(("eClass ", "UNSPSC "))})

@@ -3,7 +3,7 @@
 Ablauf:
     1. Artikel inkl. Preis aus SAP B1 (OITM/ITM1) holen
     2. Für jeden ItemCode die Swagelok-Produktseite scrapen
-       (Name, eCl@ss, UNSPSC, Bild-URLs) und Bilder nach data_output/bilder laden
+       (Name, eCl@ss, UNSPSC, Bild-URLs) und Bilder nach data_output/bilder_<Zeitstempel> laden
     3. Swagelok-Daten an die SAP-Daten anhängen
     4. Ergebnis als Excel nach data_output/ schreiben
 
@@ -27,7 +27,6 @@ from modules.scraping_functions import log, scrape_items
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "data_output"
-IMAGE_DIR = OUTPUT_DIR / "bilder"
 
 
 def main() -> int:
@@ -35,12 +34,16 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=20, help="Anzahl Artikel aus OITM (0 = alle); Standard: 20")
     ap.add_argument("--price-list", type=int, default=1, help="SAP-Preisliste; Standard: 1")
     ap.add_argument("--lang", default="en", help="Sprache der Swagelok-Seite (en, de, ...); Standard: en")
-    ap.add_argument("--pause", type=float, default=1.0, help="Sekunden zwischen Anfragen")
+    ap.add_argument("--pause", type=float, default=1.0, help="Sekunden Pause je Worker nach jeder Anfrage")
+    ap.add_argument("--workers", type=int, default=4, help="parallele Anfragen an Swagelok; Standard: 4")
     ap.add_argument("--no-bilder", action="store_true", help="keine Bilder herunterladen")
     ap.add_argument("-o", "--output", type=Path, help="Ziel-Excel (Standard: data_output/swagelok_daten_<Zeitstempel>.xlsx)")
     args = ap.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+    # Ein Zeitstempel für Excel-Datei und Bilderordner desselben Laufs
+    timestamp = f"{datetime.now():%Y%m%d_%H%M%S}"
 
     # 1. Artikel aus SAP
     conn = get_connection()
@@ -54,15 +57,17 @@ def main() -> int:
         return 1
 
     # 2. Swagelok scrapen
-    image_dir = None if args.no_bilder else IMAGE_DIR
-    df_swagelok = scrape_items(df_items["ItemCode"].tolist(), args.lang, args.pause, image_dir)
+    image_dir = None if args.no_bilder else OUTPUT_DIR / f"bilder_{timestamp}"
+    df_swagelok = scrape_items(
+        df_items["ItemCode"].tolist(), args.lang, args.pause, image_dir, workers=args.workers
+    )
 
     # 3. Anhängen (Swagelok-Name als eigene Spalte, damit er nicht mit ItemName kollidiert)
     df_swagelok = df_swagelok.rename(columns={"Artikelnummer": "ItemCode", "Name": "Swagelok_Name"})
     df_result = df_items.merge(df_swagelok, on="ItemCode", how="left")
 
     # 4. Excel schreiben
-    output = args.output or OUTPUT_DIR / f"swagelok_daten_{datetime.now():%Y%m%d_%H%M%S}.xlsx"
+    output = args.output or OUTPUT_DIR / f"swagelok_daten_{timestamp}.xlsx"
     output.parent.mkdir(parents=True, exist_ok=True)
     df_result.to_excel(output, index=False, sheet_name="Artikel")
 

@@ -8,7 +8,7 @@ Ablauf:
    (nur gültige MTS-Artikel mit Preis > 0)
 2. Pro `ItemCode` die Seite `https://products.swagelok.com/{lang}/p/{ItemCode}` lesen:
    Produktname, **eCl@ss** (4.1–10.1), **UNSPSC** (4.03–17.1001), Bild-URLs
-3. Bilder nach `data_output/bilder/` herunterladen
+3. Bilder nach `data_output/bilder_<Zeitstempel>/` herunterladen
 4. Alles zusammen als Excel nach `data_output/swagelok_daten_<Zeitstempel>.xlsx` schreiben
 
 ## Einrichtung
@@ -46,7 +46,8 @@ python src/main.py --no-bilder     # ohne Bild-Download
 | `--limit N` | Anzahl Artikel aus OITM, `0` = alle (Standard: 20) |
 | `--price-list N` | SAP-Preisliste (Standard: 1) |
 | `--lang de` | Sprache der Produktseite (Standard: `en`) |
-| `--pause 1.0` | Sekunden zwischen Anfragen an Swagelok |
+| `--workers 4` | parallele Anfragen an Swagelok (Standard: 4) |
+| `--pause 1.0` | Sekunden Pause je Worker nach jeder Anfrage |
 | `--no-bilder` | keine Bilder herunterladen |
 | `-o DATEI` | Ziel-Excel statt `data_output/swagelok_daten_<Zeitstempel>.xlsx` |
 
@@ -59,7 +60,7 @@ python src/main.py --no-bilder     # ohne Bild-Download
 | `Swagelok_Name` | Produktname laut Swagelok |
 | `eClass …`, `UNSPSC …` | eine Spalte pro Version |
 | `Bild`, `Bild_Zoom` | Bild-URLs bei Swagelok |
-| `Bilddateien` | Dateinamen in `data_output/bilder/` |
+| `Bilddateien` | Dateinamen in `data_output/bilder_<Zeitstempel>/` |
 | `URL` | Produktseite |
 
 ## Projektstruktur
@@ -73,13 +74,14 @@ src/
 test/
   test_db_connection.py        interaktive Tests (# %%-Zellen) der DB-Funktionen
   scraper_swagelok.py          interaktive Tests der Scraping-Funktionen
-data_output/                   Ergebnisse und Bilder (nicht versioniert)
+data_output/                   Excel + Bilderordner je Lauf (nicht versioniert)
 ```
 
 ## Hinweise
 
 - Bildnamen bei Swagelok ≠ Artikelnummer (z. B. 177-13K-R4-A → `177-13K-R4-B.jpg`), daher wird
   die Bild-URL aus der Produktseite gelesen. Gespeichert wird als `<ItemCode>.<Endung>`.
-- Bereits vorhandene Bilder werden übersprungen – abgebrochene Läufe können neu gestartet werden.
+- Excel-Datei und Bilderordner eines Laufs tragen denselben Zeitstempel
+  (z. B. `swagelok_daten_20261127_130000.xlsx` + `bilder_20261127_130000/`).
 - Nicht alle Artikel haben bei Swagelok alle Klassifikationen hinterlegt; fehlende bleiben leer.
-- Bei vielen Artikeln dauert ein Lauf entsprechend: ca. 2 Sekunden pro Artikel.
+- Laufzeit mit 4 Workern: ca. 0,5 Sekunden pro Artikel (20 Artikel ≈ 11 s).

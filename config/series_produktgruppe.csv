@@ -1,0 +1,153 @@
+﻿SeriesCd;GroupCd;Produktgruppe;Produktgruppe_Name;Quelle;Artikel_SAP;Artikel_im_Katalog
+AA;A;A;Fittings;Katalog;5319;2065
+AB;A;A;Fittings;GroupCd;396;0
+AC;A;A;Fittings;Katalog;19;6
+AD;A;A;Fittings;Katalog;9;5
+AE;RL;A;Fittings;Katalog;76;4
+AF;A;A;Fittings;Katalog;184;23
+AG;RL;E;Custom Solutions;Vorschlag;278;0
+AH;A;B;Valves;Katalog;223;5
+AI;A;A;Fittings;GroupCd;73;0
+AJ;A;A;Fittings;GroupCd;140;0
+AK;A;A;Fittings;Katalog;16;5
+BA;B;A;Fittings;Katalog;482;250
+BB;B;A;Fittings;Katalog;250;67
+BC;B;A;Fittings;Katalog;1198;121
+BD;RL;A;Fittings;Katalog;330;64
+BE;RL;A;Fittings;Katalog;446;51
+BF;RL;E;Custom Solutions;Vorschlag;275;0
+BG;RL;E;Custom Solutions;Vorschlag;1459;0
+BH;RL;E;Custom Solutions;Vorschlag;128;0
+CA;C;O;Other Products;GroupCd;2;0
+CB;C;O;Other Products;GroupCd;65;0
+CC;C;O;Other Products;GroupCd;6;0
+CD;C;O;Other Products;GroupCd;4;0
+CF;C;O;Other Products;GroupCd;18;0
+CG;C;O;Other Products;GroupCd;16;0
+CH;C;O;Other Products;Katalog;358;29
+CI;C;O;Other Products;GroupCd;98;0
+CJ;C;O;Other Products;GroupCd;6;0
+CK;C;O;Other Products;GroupCd;1;0
+D;RC;B;Valves;Katalog;55;7
+DA;D;C;Hoses;Vorschlag;265;0
+DB;D;C;Hoses;Vorschlag;596;0
+DC;D;C;Hoses;Vorschlag;242;0
+DD;D;C;Hoses;Vorschlag;196;0
+DE;D;C;Hoses;Vorschlag;511;0
+DF;D;C;Hoses;Vorschlag;36;0
+DG;D;C;Hoses;Vorschlag;254;0
+DH;D;C;Hoses;Vorschlag;82;0
+DI;D;C;Hoses;Vorschlag;33;0
+DJ;D;C;Hoses;Vorschlag;20;0
+DK;D;C;Hoses;Vorschlag;5;0
+DL;D;C;Hoses;Vorschlag;38;0
+DM;D;C;Hoses;Vorschlag;73;0
+DN;D;C;Hoses;Vorschlag;56;0
+DO;D;C;Hoses;Vorschlag;13;0
+DP;D;C;Hoses;Vorschlag;79;0
+DQ;D;C;Hoses;Vorschlag;12;0
+DR;D;C;Hoses;Vorschlag;97;0
+DS;D;C;Hoses;Vorschlag;10;0
+DT;D;C;Hoses;Vorschlag;4;0
+DU;D;C;Hoses;Vorschlag;130;0
+DV;D;C;Hoses;Vorschlag;51;0
+DX;D;C;Hoses;Vorschlag;198;0
+E;RE;E;Custom Solutions;Vorschlag;82;0
+EA;E;E;Custom Solutions;Katalog;661;8
+EB;E;E;Custom Solutions;Katalog;105;4
+EC;E;E;Custom Solutions;GroupCd;73;0
+ED;E;E;Custom Solutions;GroupCd;169;0
+EE;E;E;Custom Solutions;GroupCd;6;0
+F;RL;E;Custom Solutions;Vorschlag;16;0
+FA;F;O;Other Products;Katalog;56;7
+FB;F;O;Other Products;GroupCd;46;0
+G;RL;E;Custom Solutions;Vorschlag;91;0
+GA;G;B;Valves;Katalog;787;178
+GB;G;B;Valves;Katalog;916;113
+GC;G;B;Valves;Katalog;228;44
+GD;G;B;Valves;GroupCd;48;0
+GE;G;F;Service;Katalog;69;10
+GF;G;B;Valves;Katalog;59;18
+GG;G;B;Valves;Katalog;118;44
+GH;G;B;Valves;Katalog;119;50
+GJ;G;B;Valves;GroupCd;8;0
+GK;G;B;Valves;GroupCd;43;0
+GX;G;B;Valves;GroupCd;1;0
+H;RC;B;Valves;Katalog;21;1
+HA;H;B;Valves;Katalog;163;50
+HB;H;B;Valves;Katalog;76;22
+HC;H;B;Valves;Katalog;22;12
+HD;H;B;Valves;Katalog;56;12
+HE;H;B;Valves;Katalog;73;3
+HF;H;B;Valves;Katalog;16;8
+HG;H;B;Valves;GroupCd;3;0
+IA;I;B;Valves;Vorschlag;440;0
+IB;I;B;Valves;Vorschlag;62;0
+IC;I;B;Valves;Vorschlag;174;0
+ID;I;B;Valves;Vorschlag;49;0
+IE;I;B;Valves;Vorschlag;87;0
+IF;I;B;Valves;Vorschlag;30;0
+IG;I;B;Valves;Vorschlag;21;0
+JA;J;D;Regulators;GroupCd;425;0
+JB;J;D;Regulators;GroupCd;191;0
+JC;J;D;Regulators;GroupCd;17;0
+JD;J;D;Regulators;GroupCd;24;0
+JE;J;D;Regulators;Katalog;236;48
+JF;J;D;Regulators;GroupCd;40;0
+JG;J;D;Regulators;GroupCd;26;0
+JH;J;D;Regulators;GroupCd;8;0
+JI;J;D;Regulators;GroupCd;14;0
+JJ;J;D;Regulators;GroupCd;1;0
+KA;K;B;Valves;Katalog;59;19
+KB;K;B;Valves;Katalog;61;14
+KC;K;B;Valves;Katalog;259;100
+KD;K;F;Service;Katalog;225;43
+KE;K;B;Valves;Katalog;5;3
+KF;K;B;Valves;Katalog;8;6
+KG;K;B;Valves;GroupCd;9;0
+KH;K;B;Valves;GroupCd;8;0
+KI;K;B;Valves;Katalog;6;3
+KJ;K;B;Valves;GroupCd;3;0
+KL;K;G;Measurement;Katalog;99;38
+KM;K;B;Valves;GroupCd;4;0
+KO;K;G;Measurement;Katalog;4;2
+KP;K;B;Valves;Katalog;55;1
+KQ;K;F;Service;Katalog;20;8
+LA;L;B;Valves;Vorschlag;29;0
+LC;L;B;Valves;Vorschlag;1;0
+LD;L;B;Valves;Vorschlag;6;0
+LE;L;B;Valves;Vorschlag;4;0
+LF;L;B;Valves;Vorschlag;6;0
+MA;M;O;Other Products;Vorschlag;43;0
+MB;M;O;Other Products;Vorschlag;5;0
+MC;M;O;Other Products;Vorschlag;1;0
+MD;X;B;Valves;GroupCd;4;0
+NA;N;D;Regulators;Katalog;977;22
+NB;N;D;Regulators;GroupCd;438;0
+NC;N;D;Regulators;GroupCd;20;0
+ND;N;D;Regulators;GroupCd;14;0
+OA;O;O;Other Products;Katalog;341;127
+OB;O;O;Other Products;GroupCd;8;0
+OC;O;O;Other Products;GroupCd;10;0
+PA;P;G;Measurement;Vorschlag;134;0
+PB;P;G;Measurement;Vorschlag;9;0
+PC;P;G;Measurement;Vorschlag;37;0
+PD;P;G;Measurement;Vorschlag;43;0
+PE;P;G;Measurement;Vorschlag;2;0
+PF;P;G;Measurement;Vorschlag;125;0
+PG;P;G;Measurement;Vorschlag;2;0
+PX;P;G;Measurement;Vorschlag;601;0
+QG;Q;O;Other Products;Vorschlag;3;0
+RA;R;O;Other Products;Vorschlag;6;0
+RC;R;O;Other Products;Vorschlag;34;0
+RD;R;O;Other Products;Vorschlag;1;0
+RE;RE;E;Custom Solutions;Vorschlag;31;0
+SB;S;F;Service;Vorschlag;3;0
+SC;S;F;Service;Vorschlag;9;0
+SD;S;F;Service;Vorschlag;37;0
+TA;T;F;Service;Vorschlag;1;0
+TB;T;F;Service;Vorschlag;70;0
+TC;T;F;Service;Vorschlag;22;0
+XA;X;B;Valves;Katalog;1509;36
+XB;X;B;Valves;GroupCd;44;0
+XX;X;A;Fittings;Katalog;46;1

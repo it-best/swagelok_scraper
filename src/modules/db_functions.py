@@ -50,6 +50,7 @@ def get_top_items(
         SELECT {top}
             T0."ItemCode",
             T0."ItemName",
+            T0."U_SWK_SeriesCd" AS "SeriesCd",
             T1."Price",
             T1."Currency"
         FROM "OITM" T0
