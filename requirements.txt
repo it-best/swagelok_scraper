@@ -2,3 +2,4 @@ hdbcli
 python-dotenv
 ipykernel
 pandas
+openpyxl
